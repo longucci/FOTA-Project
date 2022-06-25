@@ -142,15 +142,15 @@ int main(void)
 
   while (1)
   {
-	Led_Toggle();
+    Led_Toggle();
     if(flag == 1){
-		uint8_t* confirm_msg = (uint8_t*)"Updated firmware\r\n";
-		HAL_UART_Transmit(&huart6, confirm_msg, strlen((char*)confirm_msg), HAL_MAX_DELAY);
-		memcpy((char*)vector_in_ram,(uint32_t*)0x08000000,0x198);
-		SCB->VTOR |= 0x20000000;
-		uint32_t* systick_handler_addr = (uint32_t*)0x2000003C;
-		*systick_handler_addr = (uint32_t)SysTick_Handle |1;
-		update(data_of_fw, size_of_fw);
+	uint8_t* confirm_msg = (uint8_t*)"Updated firmware\r\n";
+	HAL_UART_Transmit(&huart6, confirm_msg, strlen((char*)confirm_msg), HAL_MAX_DELAY);
+	memcpy((char*)vector_in_ram,(uint32_t*)0x08000000,0x198);
+	SCB->VTOR |= 0x20000000;
+	uint32_t* systick_handler_addr = (uint32_t*)0x2000003C;
+	*systick_handler_addr = (uint32_t)SysTick_Handle |1;
+	update(data_of_fw, size_of_fw);
     }
   }
 }
